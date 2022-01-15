@@ -1,0 +1,3 @@
+dir.txt
+files.txt
+show.sh

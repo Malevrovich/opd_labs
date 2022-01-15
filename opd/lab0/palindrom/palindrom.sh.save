@@ -1,0 +1,52 @@
+function isPalindrom {
+for i in $(seq 0 $(expr $(expr length $1) / 2))
+do
+arg=$1
+lhs=${arg:$i:1}
+rhs=${arg:$(expr $(expr length $1) - $i):1}
+if [ "$lhs" != "$rhs" ]; then return 0; fi;
+done
+return 1;
+}
+
+read input
+
+len=$(expr length $input)
+let 'len=len-1'
+arr=($(seq 0 $len))
+
+for i in $(seq 0 $len)
+do
+arr[$i]=${input:$i:1}
+done
+
+let 'len=len/2'
+
+for i in $(seq 0 $len)
+do
+arr[$(($(expr length $input) - $i - 1))]=${arr[$i]}
+done
+
+palindrom1=""
+
+for i in $(seq 0 $(($(expr length $input) - 1)))
+do
+palindrom1+="${arr[$i]}"
+done
+
+echo "INPUT: $input"
+echo "PALINDROM1: $palindrom1"
+echo $( isPalindrom "1221")
+
+for i in $(seq 0 $(expr $input - $palindrom1))
+do
+echo isPalindrom $(expr $i + $input)`
+if [[ $(isPalindrom $(expr $i + $input)) -eq "1" ]]
+then
+echo $(expr $i + $input)
+echo "!!!"
+else
+echo $(expr $i + $input)
+echo "!"
+fi
+done
